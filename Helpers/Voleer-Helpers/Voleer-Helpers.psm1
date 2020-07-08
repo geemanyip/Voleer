@@ -85,6 +85,12 @@ else {
     Write-Verbose "Repository install directory $($installDirRepository) already exists" -Verbose
 }
 
+# Remove previous install
+if(Test-Path $installDirModule) {
+    Write-Verbose "Removing previously installed module directory $($installDirModule)" -Verbose
+    Remove-Item -Path $installDirModule -Force -Recurse
+}
+
 # Create module directory so that we can support multiple modules from the same repo
 if(-not (Test-Path $installDirModule)) {
     Write-Verbose "Creating module install directory $($installDirModule)" -Verbose

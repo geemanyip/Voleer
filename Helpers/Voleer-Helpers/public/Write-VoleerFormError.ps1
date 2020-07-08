@@ -15,7 +15,7 @@
         Write-FormError $_
     }
 #>
-function Write-FormError {
+function Write-VoleerFormError {
     [CmdletBinding(PositionalBinding=$true)]
     [OutputType([String])]
     param (
