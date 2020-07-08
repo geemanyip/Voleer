@@ -121,6 +121,7 @@ $public  = @(Get-ChildItem -Path $publicDir\*.ps1 -ErrorAction SilentlyContinue)
 foreach($import in @($private + $public))
 {
     try {
+        Write-Verbose "Importing module $($import.fullname)" -Verbose
         . $import.fullname
     }
     catch {
