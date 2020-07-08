@@ -2,7 +2,7 @@
 .SYNOPSIS
     This function converts the an object to text
 #>
-function Convert-EndPointTypeToFriendlyName {
+function Convert-MWEndPointTypeToFriendlyName {
     [CmdletBinding(PositionalBinding=$true)]
     [OutputType([String])]
     param (

@@ -3,7 +3,7 @@
     This function normalizes error messages by removing unique information so that we can
     consolidate the messages when attempting to group them
 #>
-function Convert-NormalizeErrorMessage {
+function Convert-MWNormalizeErrorMessage {
     [CmdletBinding(PositionalBinding=$true)]
     [OutputType([String])]
     param (

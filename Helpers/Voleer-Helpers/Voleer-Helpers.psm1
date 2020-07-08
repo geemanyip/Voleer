@@ -66,6 +66,9 @@ function DownloadGitHubFiles {
 ################################################################################
 # Prepare local environment
 ################################################################################
+Write-Verbose "**************************************************" -Verbose
+Write-Verbose "START remote module install:  $($owner)/$($repository)/$($rootPath)"
+Write-Verbose "**************************************************" -Verbose
 Write-Verbose "Preparing local environment" -Verbose
 
 # Create root director
@@ -121,7 +124,7 @@ $public  = @(Get-ChildItem -Path $publicDir\*.ps1 -ErrorAction SilentlyContinue)
 foreach($import in @($private + $public))
 {
     try {
-        Write-Verbose "Importing module $($import.fullname)" -Verbose
+        Write-Verbose "Importing script $($import.fullname)" -Verbose
         . $import.fullname
     }
     catch {
@@ -131,3 +134,7 @@ foreach($import in @($private + $public))
 
 # Export public functions
 Export-ModuleMember -Function $Public.Basename
+
+Write-Verbose "**************************************************" -Verbose
+Write-Verbose "END remote module install: $($owner)/$($repository)/$($rootPath)"
+Write-Verbose "**************************************************" -Verbose
