@@ -67,7 +67,7 @@ function DownloadGitHubFiles {
 # Prepare local environment
 ################################################################################
 Write-Verbose "**************************************************" -Verbose
-Write-Verbose "START remote module install:  $($owner)/$($repository)/$($rootPath)"
+Write-Verbose "START remote module install:  $($owner)/$($repository)/$($rootPath)" -Verbose
 Write-Verbose "**************************************************" -Verbose
 Write-Verbose "Preparing local environment" -Verbose
 
@@ -136,5 +136,5 @@ foreach($import in @($private + $public))
 Export-ModuleMember -Function $Public.Basename
 
 Write-Verbose "**************************************************" -Verbose
-Write-Verbose "END remote module install: $($owner)/$($repository)/$($rootPath)"
+Write-Verbose "END remote module install: $($owner)/$($repository)/$($rootPath)" -Verbose
 Write-Verbose "**************************************************" -Verbose
