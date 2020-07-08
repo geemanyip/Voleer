@@ -29,8 +29,8 @@ function DownloadGitHubFiles {
         )
 
     $uri = "$($baseUri)/repos/$($Owner)/$($Repository)/contents/$($Path)"
-    Write-Verbose "Downloading file $($uri)" -Verbose
-    $wr = Invoke-WebRequest -Uri $($uri)
+    Write-Verbose "Downloading GitHub configuration $($uri)" -Verbose
+    $wr = Invoke-WebRequest -Uri $($uri) -UseBasicParsing
     $json = $wr.Content | ConvertFrom-Json
     $files = $json | Where-Object {$_.type -eq "file"} | Select-Object -exp download_url
     $directories = $json | Where-Object {$_.type -eq "dir"}
@@ -43,6 +43,7 @@ function DownloadGitHubFiles {
     # Create destination directory
     if(-not (Test-Path $DownloadDir)) {
         try {
+            Write-Verbose "Creating script directory $($DownloadDir)" -Verbose
             New-Item -Path $DownloadDir -ItemType Directory
         }
         catch {
@@ -113,11 +114,11 @@ DownloadGitHubFiles -Owner $owner -Repository $repository -Path $rootPath -Downl
 Write-Verbose "Exporting public modules" -Verbose
 
 # Get public and private function definition files.
-$public  = @(Get-ChildItem -Path $publicDir\*.ps1 -ErrorAction SilentlyContinue)
 $private = @(Get-ChildItem -Path $privateDir\*.ps1 -ErrorAction SilentlyContinue)
+$public  = @(Get-ChildItem -Path $publicDir\*.ps1 -ErrorAction SilentlyContinue)
 
 # Dot source the files
-foreach($import in @($public + $private))
+foreach($import in @($private + $public))
 {
     try {
         . $import.fullname
